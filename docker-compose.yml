@@ -1,0 +1,51 @@
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx-conf/letsencrypt:/etc/letsencrypt
+    restart: always
+    depends_on:
+      - frontend
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_TRUST_HOST: true
+      AUTH_URL: "https://${DOMAIN_NAME}"
+      # AUTH_URL_INTERNAL: "http://frontend:3000"
+      DATABASE_HOST: "db"
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_PORT: ${DATABASE_PORT}
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./postgres_files
+      dockerfile: Dockerfile
+    ports:
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+
+volumes:
+  database_volume:
+    name: "${VOLUME_NAME}"

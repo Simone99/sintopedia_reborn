@@ -1,0 +1,14 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.vscode
+.venv
+nginx
+postgres_files
+docker-compose.yml
+Synthonpedia_disclaimer.odt
+Synthonpedia_disclaimer.pdf

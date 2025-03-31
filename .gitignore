@@ -34,3 +34,37 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python venv
+.venv
+
+# init_db server API
+/app/api/init_db
+
+# Postgres files
+/postgres_files/dist
+/postgres_files/get_reactions_stress_test_no_rate_limiter.py
+/postgres_files/init_db_tables_functions.sql
+/postgres_files/result_check_function_backup.sql
+/postgres_files/result_check_function.sql
+/postgres_files/set_bulk_database.py
+/postgres_files/stress_test_results.txt
+
+# vscode
+.vscode
+
+# Disclaimer files
+Synthonpedia_disclaimer.odt
+Synthonpedia_disclaimer.pdf
+
+# npm
+.npmrc
+
+# Auth
+/app/auth.js
+/app/api/auth
+/app/api/login
+/app/api/user/route.js
+
+# nginx
+/nginx
