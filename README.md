@@ -1,6 +1,6 @@
 # Synthonpedia
 
-<!-- ![Synthonpedia logo](Isolated.png "Synthonpedia logo") -->
+![Synthonpedia logo](/images/Synthonpedia_logo.svg "Synthonpedia logo")
 
 ## Introduction
 
