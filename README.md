@@ -46,7 +46,9 @@ Special thanks to **EPAM Systems** for providing [Indigo](https://github.com/epa
 
 - **Simone Zanella**: Synthonpedia full stack developer
 - **Alessandro Brusa**: Synthonpedia author
+- **Angelica Di Lorenzo**: Synthonpedia logo designer
+- **Alessia Bianchini**: Synthonpedia logo designer
 
 ## Contact
 
-For questions, suggestions, or feedback, please open an issue or reach out via email at [simone060699@gmail.com](mailto:simone060699@gmail.com).
+For questions, suggestions, or feedbacks, please open an issue or reach out via email at [simone060699@gmail.com](mailto:simone060699@gmail.com).

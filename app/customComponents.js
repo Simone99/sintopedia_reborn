@@ -32,7 +32,13 @@ function NavBar(props) {
   return (
     <nav id="navbar" className="fixed top-0 left-0 w-full flex items-center justify-between flex-wrap bg-linear-to-r from-blue-500 to-(--background-end-rgb) p-4">
       <div className="flex items-center shrink-0 text-white mr-6">
-        <Image src="/Synthonpedia_logo_2.png" alt="" width={50} height={50} />
+        <a
+          href="/Synthonpedia_logo_2.png"
+          target="_blank"
+          rel="license noopener noreferrer"
+        >
+          <Image src="/Synthonpedia_logo_2.png" alt="" width={50} height={50} />
+        </a>
         <div className="px-1" />
         <Link href="/">
           <span className="font-semibold text-xl tracking-tight">
@@ -1539,68 +1545,106 @@ const ShowUserSynthonsModal = ({ setCurrentlyShownQuery, query_images }) => {
 const Footer = () => {
   return (
     <footer className="bg-gray-200 text-black dark:bg-gray-900 dark:text-white py-6 mt-8">
-      <div className="container mx-auto flex flex-col space-y-4 px-6">
-
-        {/* Your Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center w-full">
-          <p className="text-lg font-semibold">Developed by Simone Zanella</p>
-          <div className="flex space-x-4 mt-2 md:mt-0">
-            <a
-              href="https://www.linkedin.com/in/simone-zanella-5a7713225"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-400 transition"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/Simone99"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-400 transition"
-            >
-              GitHub
-            </a>
-          </div>
+      {/* My Section */}
+      <div className="text-center mb-4">
+        <p>Developed by:</p>
+        <div className="flex justify-center gap-4">
+          <span className="font-semibold">Simone Zanella</span>
+          <a
+            href="https://www.linkedin.com/in/simone-zanella-5a7713225"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/Simone99"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 dark:text-gray-400 hover:underline"
+          >
+            GitHub
+          </a>
         </div>
+      </div>
 
-        {/* Ale's Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center w-full">
-          <p className="text-lg font-semibold">Idea of Alessandro Brusa</p>
-          <div className="flex space-x-4 mt-2 md:mt-0">
-            <a
-              href="https://www.linkedin.com/in/alessandro-brusa-a14854254/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-400 transition"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://x.com/Organic_brusa?t=q1k7jGjznBvPmjTueUsW8g&s=35"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-400 transition"
-            >
-              X
-            </a>
-          </div>
+      {/* Ale's Section */}
+      <div className="text-center mb-4">
+        <p>Idea of:</p>
+        <div className="flex justify-center gap-4">
+          <span className="font-semibold">Alessandro Brusa</span>
+          <a
+            href="https://www.linkedin.com/in/alessandro-brusa-a14854254/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://x.com/Organic_brusa?t=q1k7jGjznBvPmjTueUsW8g&s=35"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 dark:text-gray-400 hover:underline"
+          >
+            X
+          </a>
         </div>
+      </div>
 
-        {/* EPAM Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center w-full">
-          <p className="text-lg font-semibold">Powered by Indigo</p>
-          <div className="flex space-x-4 mt-2 md:mt-0">
-            <a
-              href="https://www.epam.com/services/engineering/open-source"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-400 transition"
-            >
-              EPAM
-            </a>
-          </div>
+      {/* Angelica and Alessia Section */}
+      <div className="text-center mb-4">
+        <p>Logo by:</p>
+        <div className="flex justify-center gap-4 mb-2">
+          <span className="font-semibold">Angelica Di Lorenzo</span>
+          <a
+            href="https://www.linkedin.com/in/angelica-di-lorenzo-047675348/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            LinkedIn
+          </a>
         </div>
+        <div className="flex justify-center gap-4">
+          <span className="font-semibold">Alessia Bianchini</span>
+          <a
+            href="https://www.linkedin.com/in/alessia-bianchini-774951350/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      {/* EPAM Section */}
+      <div className="text-center mb-4">
+        <p>Powered by:</p>
+        <div className="flex justify-center gap-4 mb-2">
+          <span className="font-semibold">Indigo</span>
+          <a
+            href="https://www.epam.com/services/engineering/open-source"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            EPAM
+          </a>
+        </div>
+      </div>
+
+      {/* CreativeCommons Section */}
+      <div className="flex justify-center">
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
+          target="_blank"
+          rel="license noopener noreferrer"
+        >
+          <Image src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0" width={88} height={31} />
+        </a>
       </div>
     </footer>
   );
