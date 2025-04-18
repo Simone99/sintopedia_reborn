@@ -53,7 +53,7 @@ export default function Home() {
           method: "GET",
           headers: {
             molecule: molecule,
-            split_aromatic_bonds: splitAromatic
+            splitAromaticBonds: splitAromatic
           },
         });
         if (!resp.ok) {

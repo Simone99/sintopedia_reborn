@@ -66,7 +66,7 @@ export default function Home() {
                   ? JSON.stringify(router.query["molecule"])
                   : JSON.stringify(["C1=CC=CC=C1"])
                 : JSON.stringify(["C1=CC=CC=C1"]),
-              query_ids: router.query
+              queryIds: router.query
                 ? router.query["query_ids"]
                   ? JSON.stringify(router.query["query_ids"])
                   : JSON.stringify([0])

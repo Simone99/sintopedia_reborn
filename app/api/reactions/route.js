@@ -180,7 +180,7 @@ export const GET = rateLimitMiddleware(async function GET(req) {
   try {
     const molecules_to_match = JSON.parse(req.headers.get("molecule"));
     const filters_header = JSON.parse(req.headers.get("filters"));
-    const query_ids = JSON.parse(req.headers.get("query_ids"));
+    const query_ids = JSON.parse(req.headers.get("queryIds"));
     let nRecords = req.headers.get("nRecords");
     let fromIndex = req.headers.get("fromIndex");
     if (fromIndex < 0) fromIndex = 0;
@@ -204,7 +204,7 @@ export const PUT = rateLimitMiddleware(async function PUT(req) {
     let params = JSON.parse(await fetchStream(req.body));
     const molecules_to_match = JSON.parse(params["molecule"]);
     const filters_header = JSON.parse(params["filters"]);
-    const query_ids = JSON.parse(params["query_ids"]);
+    const query_ids = JSON.parse(params["queryIds"]);
     let nRecords = params["nRecords"];
     let fromIndex = params["fromIndex"];
     if (fromIndex < 0) fromIndex = 0;

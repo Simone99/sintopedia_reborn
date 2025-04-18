@@ -8,7 +8,7 @@ export const GET = rateLimitMiddleware(async function GET(req) {
     // return handleOnNewConnection(async (client) => {
     try {
         const molecule_to_split = req.headers.get("molecule");
-        const split_aromatic_bonds = JSON.parse(req.headers.get("split_aromatic_bonds"));
+        const split_aromatic_bonds = JSON.parse(req.headers.get("splitAromaticBonds"));
         let query = `
                 SELECT get_synthons($1, $2)
             `;
