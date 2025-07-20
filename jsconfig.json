@@ -3,5 +3,16 @@
     "paths": {
       "@/*": ["./*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".venv",
+    ".vscode",
+    "images",
+    "nginx",
+    "postgres_files",
+    "build",
+    "dist"
+  ]
 }
