@@ -1,4 +1,6 @@
 repo="https://github.com/epam/Indigo"
+postgres_major_version="17"
+config=Debug
 
 # Set the directory you want to clean
 DIR="$(pwd)/dist"
@@ -21,26 +23,27 @@ fi
 
 echo "Compiling bingo-postgres..."
 
-docker pull epmlsop/buildpack-centos7:latest
+docker pull epmlsop/buildpack-almalinux8:latest
 docker run --rm \
            -v "$DIR":/output \
-           epmlsop/buildpack-centos7:latest \
+           epmlsop/buildpack-almalinux8:latest \
            /bin/sh \
            -c " set -eux && \
-                yum install -y --disablerepo base --disablerepo centos-sclo-rh --disablerepo centos-sclo-sclo --disablerepo extras --disablerepo updates https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm yum-utils && \
+                ulimit -n 1024 && \
+                yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
                 curl -OL https://download.postgresql.org/pub/repos/yum/keys/PGDG-RPM-GPG-KEY-RHEL && \
                 rpm --import PGDG-RPM-GPG-KEY-RHEL && \
-                yumdownloader -y --disablerepo base --disablerepo centos-sclo-rh --disablerepo centos-sclo-sclo --disablerepo extras --disablerepo updates postgresql15-devel && \
-                rpm -i --nodeps postgresql15*.rpm && \
+                yumdownloader -y postgresql$postgres_major_version-devel && \
+                rpm -i --nodeps postgresql$postgres_major_version*.rpm && \
                 ls -alh /usr && \
                 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/httpd24/root/usr/lib64 && \
                 git clone $repo && \
                 cd Indigo && \
                 mkdir build && \
                 cd build && \
-                cmake .. -DBUILD_BINGO_POSTGRES=ON -DBUILD_BINGO_SQLSERVER=OFF -DBUILD_BINGO_ORACLE=OFF -DBUILD_INDIGO=OFF -DBUILD_INDIGO_WRAPPERS=OFF -DBUILD_INDIGO_UTILS=OFF -DBUILD_BINGO_ELASTIC=OFF -DCMAKE_PREFIX_PATH=/usr/pgsql-15 && \
-                cmake --build . --config Debug --target package-bingo-postgres -- -j $(nproc) && \
-                cp /Indigo/dist/bingo-postgres15-*.tgz /output"
+                cmake .. -DBUILD_BINGO_POSTGRES=ON -DBUILD_BINGO_SQLSERVER=OFF -DBUILD_BINGO_ORACLE=OFF -DBUILD_INDIGO=OFF -DBUILD_INDIGO_WRAPPERS=OFF -DBUILD_INDIGO_UTILS=OFF -DBUILD_BINGO_ELASTIC=OFF -DCMAKE_PREFIX_PATH=/usr/pgsql-$postgres_major_version && \
+                cmake --build . --config $config --target package-bingo-postgres -- -j $(nproc) && \
+                cp /Indigo/dist/bingo-postgres$postgres_major_version-*.tgz /output"
 
 # Indigo-python
 
@@ -58,11 +61,11 @@ docker run \
         mkdir build &&
         cd build &&
         cmake .. -DBUILD_INDIGO=ON -DBUILD_INDIGO_UTILS=ON -DBUILD_BINGO=OFF -DBUILD_BINGO_ELASTIC=OFF &&
-        cmake --build . --config Debug --target indigo-python -- -j $(nproc) &&
-        cp ../dist/epam.indigo-*-none-manylinux1_x86_64.whl /output
+        cmake --build . --config $config --target indigo-python -- -j $(nproc) &&
+        cp ../dist/epam_indigo-*-none-manylinux1_x86_64.whl /output
     "
 
-# Ketcher and indigo-wasm
+Ketcher and indigo-wasm
 
 echo "Compiling ketcher and indigo-wasm..."
 
@@ -76,8 +79,8 @@ docker run \
         cd Indigo &&
         mkdir build &&
         cd build &&
-        emcmake cmake .. -DCMAKE_BUILD_TYPE=Debug &&
-        cmake --build . --config Debug --target indigo-ketcher-package -- -j $(nproc) &&
+        emcmake cmake .. -DCMAKE_BUILD_TYPE=$config &&
+        cmake --build . --config $config --target indigo-ketcher-package -- -j $(nproc) &&
         cp ../dist/indigo-ketcher-*.tgz /output
     "
 sh -c "tar -xvf $DIR/indigo-ketcher-*.tgz -C $DIR"
@@ -112,9 +115,8 @@ cp ./ketcher/example/build/robots.txt ../../public
 mkdir ../../public/static
 mkdir ../../public/static/css
 mkdir ../../public/static/js
-sh -c "cp ./ketcher/example/build/static/css/main.*.css ../../public/static/css && \
-       cp ./ketcher/example/build/static/js/main.*.js* ../../public/static/js && \
-       cp ./ketcher/example/build/static/js/*.chunk.js* ../../public/static/js"
+sh -c "cp ./ketcher/example/build/static/css/* ../../public/static/css && \
+       cp ./ketcher/example/build/static/js/* ../../public/static/js"
 sudo rm -R ketcher
 sudo rm -R package
 sudo sh -c "rm indigo-ketcher-*.tgz"
