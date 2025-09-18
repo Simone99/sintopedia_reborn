@@ -65,7 +65,7 @@ docker run \
         cp ../dist/epam_indigo-*-none-manylinux1_x86_64.whl /output
     "
 
-Ketcher and indigo-wasm
+# Ketcher and indigo-wasm
 
 echo "Compiling ketcher and indigo-wasm..."
 
@@ -87,7 +87,7 @@ sh -c "tar -xvf $DIR/indigo-ketcher-*.tgz -C $DIR"
 git clone https://github.com/epam/ketcher "$DIR/ketcher"
 cd "$DIR/ketcher"
 npm i
-sh -c "rm ./node_modules/indigo-ketcher/* && cp ../package/* ./node_modules/indigo-ketcher/"
+# sh -c "rm ./node_modules/indigo-ketcher/* && cp ../package/* ./node_modules/indigo-ketcher/"
 cd ./packages/ketcher-core
 npm run build
 cd ../ketcher-react
