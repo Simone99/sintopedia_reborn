@@ -45,7 +45,7 @@ export default function Home() {
                 }
                 let tmp = [];
                 for (let i = 0; i < router.query["query_ids"].length; i++) {
-                    if (router.query["query_ids"][i] == currentlyShownQuery) {
+                    if (router.query["query_ids"][i][0] == currentlyShownQuery) {
                         tmp.push(await getBase64ImageFromSmiles(ketcher.indigo, router.query["molecule"][i]));
                     }
                 }
@@ -78,8 +78,8 @@ export default function Home() {
                         "queryIds": router.query
                             ? router.query["query_ids"]
                                 ? JSON.stringify(router.query["query_ids"])
-                                : JSON.stringify([0])
-                            : JSON.stringify([0]),
+                                : JSON.stringify([0, 0])
+                            : JSON.stringify([0, 0]),
                         "nRecords": 0,
                         "fromIndex": 0
                     })

@@ -69,8 +69,8 @@ export default function Home() {
               queryIds: router.query
                 ? router.query["query_ids"]
                   ? JSON.stringify(router.query["query_ids"])
-                  : JSON.stringify([0])
-                : JSON.stringify([0]),
+                  : JSON.stringify([0, 0])
+                : JSON.stringify([0, 0]),
               filters: JSON.stringify(selectedFilters),
               nRecords: N_REACTIONS_PER_PAGE,
               fromIndex: currentPage * N_REACTIONS_PER_PAGE

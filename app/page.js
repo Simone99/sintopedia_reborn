@@ -79,8 +79,8 @@ export default function Home() {
         let indexes = [];
         let index = 0;
         for (let split of splits) {
-          for (let smiles of split) {
-            indexes.push(index);
+          for (let smiles of split[0]) {
+            indexes.push([index, split[1]]);
             smiles_list.push(smiles);
           }
           index += 1;
@@ -110,7 +110,7 @@ export default function Home() {
               await delay(500);
               let synthon_smiles = await ketcher.getSmiles();
               synthons.push(synthon_smiles);
-              query_ids.push(0);
+              query_ids.push([0, 0]);
             }
           }
           router.query = {
