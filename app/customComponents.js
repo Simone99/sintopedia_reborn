@@ -144,7 +144,7 @@ function Alert(props) {
   );
 }
 
-function Reaction({ reaction, editable, user, onReport, onEdit, onDelete, setCurrentlyShownQuery }) {
+function Reaction({ reaction, editable, showMatchingQuery, user, onReport, onEdit, onDelete, setCurrentlyShownQuery }) {
 
   const [showSynthons, setShowSynthons] = useState(false);
   // const [showMatchingUserMolecule, setShowMatchingUserMolecule] = useState(false);
@@ -277,7 +277,7 @@ function Reaction({ reaction, editable, user, onReport, onEdit, onDelete, setCur
                       <div className="py-2" />
                       <div className="flex flex-row items-center">
                         {
-                          !editable && <>
+                          !editable && showMatchingQuery && <>
                             <Button
                               color={"blue"}
                               onClick={(event) => {
@@ -545,6 +545,7 @@ function ReactionPage(props) {
             key={reaction.id}
             reaction={reaction}
             editable={props.editable}
+            showMatchingQuery={props.showMatchingQuery}
             onDelete={onDelete}
             onEdit={onEdit}
             onReport={handleReportReaction}
@@ -930,6 +931,11 @@ function ReactionAddEditPage(props) {
           setIsLoading(false);
           scrollToTop();
         }
+      } else {
+        setIsLoading(true);
+        await delay(1000);
+        scrollToTop();
+        setIsLoading(false);
       }
     })();
   }, [router.query, props.edit, session.data?.user.id]);

@@ -204,6 +204,7 @@ export default function Home() {
                         <ReactionPage
                             reactions={reactionsOnPage}
                             editable={false}
+                            showMatchingQuery={true}
                             setSelectedFilters={setSelectedFilters}
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}
