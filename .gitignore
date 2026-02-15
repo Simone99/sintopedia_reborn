@@ -50,6 +50,8 @@ next-env.d.ts
 /postgres_files/set_bulk_database.py
 /postgres_files/stress_test_results.txt
 /postgres_files/steps_to_upgrade_postgres_container.txt
+/postgres_files/debug_search_function.py
+/postgres_files/debug_search_function_output.json
 
 # vscode
 .vscode

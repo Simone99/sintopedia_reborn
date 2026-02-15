@@ -244,6 +244,12 @@ function Reaction({ reaction, editable, showMatchingQuery, user, onReport, onEdi
         </div>
       </div>
       <div className="py-2" />
+      {!editable && reaction.score ? (<span
+        className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
+      >
+        {"Score: " + Math.ceil(reaction.score * 100) / 100}
+      </span>):<></>}
+      <div className="py-2" />
       <Button
         color={"blue"}
         onClick={(event) => {
