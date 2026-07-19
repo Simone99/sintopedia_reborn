@@ -20,7 +20,7 @@ async function getUserReactions(userId, filters, nRecords, fromIndex) {
   let where_clause = [];
   for (let [key, value] of Object.entries(filters)) {
     parameters.push(value);
-    if (key === "green_chemistry" || key === "year_of_publication") {
+    if (key === "green_chemistry") {
       where_clause.push(`r.${key} = $${parameters.length}`);
     } else if (key === "reaction_name") {
       where_clause.push(`r.name ~* $${parameters.length}`);

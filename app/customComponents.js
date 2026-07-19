@@ -231,12 +231,14 @@ function Reaction({ reaction, editable, showMatchingQuery, user, onReport, onEdi
               <></>
             )}
             {reaction.year_of_publication ? (
-              <span
-                key={"Year of publication"}
-                className="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300"
-              >
-                {"Year of publication: " + reaction.year_of_publication}
-              </span>
+              reaction.year_of_publication.map((yp) => (
+                <span
+                  key={yp}
+                  className="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300"
+                >
+                  {yp}
+                </span>
+              ))
             ) : (
               <></>
             )}
@@ -595,6 +597,7 @@ const delay = (delayInms) => {
 
 function ReactionFilters({ setSelectedFilters, preSelectedFilters, showSearchBar }) {
   let [filters, setFilters] = useState(undefined);
+  let [yearsCount, setYearsCount] = useState(0);
 
   useEffect(() => {
     (async function () {
@@ -810,24 +813,50 @@ function ReactionFilters({ setSelectedFilters, preSelectedFilters, showSearchBar
         </div>
         <div className="px-4" />
         <div className="flex flex-col items-center py-3">
-          <label
-            htmlFor="Year of publication"
-            className="block uppercase tracking-wide text-black dark:text-white text-xs font-bold mb-2"
-          >
-            Year of publication
-          </label>
-          <input
-            id="Year of publication"
-            type="number"
-            className="border border-gray-900 dark:border-gray-300"
-            onBlur={(event) => {
-              setSelectedFilters((prev) => {
-                let tmp = { ...prev };
-                tmp["Year of publication"] = event.target.value;
-                return tmp;
-              });
-            }}
-          />
+          <div className="flex flex-wrap -mx-3 mb-2 items-center">
+            <p
+              className="block uppercase tracking-wide text-black dark:text-white text-xs font-bold mb-2"
+            >
+              Year of publication
+            </p>
+            <Button
+              color={"blue"}
+              onClick={(event) => {
+                event.preventDefault();
+                setSelectedFilters((prev) => {
+                  let tmp = { ...prev };
+                  if (!tmp["Year of publication"]) {
+                    tmp["Year of publication"] = [null];
+                  } else {
+                    tmp["Year of publication"].push(null);
+                  }
+                  return tmp;
+                });
+                setYearsCount((prev) => prev + 1);
+              }}
+            >
+              +
+            </Button>
+          </div>
+          {yearsCount > 0 ? (
+            [...Array(yearsCount).keys()].map((id) => (
+              <input
+                key={"year_pub_" + id}
+                id={"year_pub_" + id}
+                type="number"
+                className="border border-gray-900 dark:border-gray-300"
+                onBlur={(event) => {
+                  setSelectedFilters((prev) => {
+                    let tmp = { ...prev };
+                    tmp["Year of publication"][id] = event.target.value;
+                    return tmp;
+                  });
+                }}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
