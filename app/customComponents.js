@@ -652,18 +652,34 @@ function ReactionFilters({ setSelectedFilters, preSelectedFilters, showSearchBar
       });
       setSelectedFilters((prev) => {
         let tmp = { ...prev };
-        if (preSelectedFilters) {
-          if (preSelectedFilters["Year of publication"]) {
-            tmp["Year of publication"] =
-              preSelectedFilters["Year of publication"];
-            document.getElementById("Year of publication").value =
-              tmp["Year of publication"];
-          } else {
-            tmp["Year of publication"] = undefined;
-          }
+
+        if (
+          preSelectedFilters &&
+          preSelectedFilters["Year of publication"] &&
+          preSelectedFilters["Year of publication"].length > 0
+        ) {
+          // Copy the array of years
+          tmp["Year of publication"] = [
+            ...preSelectedFilters["Year of publication"],
+          ];
+
+          // Render the correct number of inputs
+          setYearsCount(tmp["Year of publication"].length);
+
+          // Wait until React has rendered the inputs, then populate them
+          setTimeout(() => {
+            tmp["Year of publication"].forEach((year, index) => {
+              const input = document.getElementById(`year_pub_${index}`);
+              if (input) {
+                input.value = year;
+              }
+            });
+          }, 1000);
         } else {
           tmp["Year of publication"] = undefined;
+          setYearsCount(0);
         }
+
         return tmp;
       });
       setSelectedFilters((prev) => {
